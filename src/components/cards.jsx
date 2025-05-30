@@ -1,32 +1,25 @@
-import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function Cards() {
-    const [photos, setPhotos] = useState([]);
+export default function Cards({ photos, setPhotos, filter }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [cuenta, setCuenta] = useState(0)
 
-
-
+    async function fetchData(url) {
+        try {
+            const response = await axios.get(url);
+            setPhotos(response.data)
+        } catch (error) {
+            setError("Error al cargar las fotos: " + error.message);
+            console.error("Error fetching photos:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await axios.get('/stays.json');
-
-                console.log(response.data)
-                setPhotos(response.data)
-            } catch (error) {
-                setError("Error al cargar las fotos: " + error.message);
-                console.error("Error fetching photos:", error);
-            } finally {
-                setLoading(false);
-            }
-
-        }
-        fetchData();
+        fetchData('/stays.json');
     }, [])
 
     if (loading) {
@@ -50,7 +43,7 @@ export default function Cards() {
 
             <section id="container"
                 className="flex flex-wrap items-center justify-center  w-[100%] h-[100%] lg:h-[screen] gap-4 md:gap-7 lg:grid lg:grid-cols-3 lg:gap-8 lg:justify-items-center">
-                {photos?.map((photo) =>
+                {filter?.map((photo) =>
                     < div key={photo.id} className="flex flex-col w-[330px] lg:w-[100%] lg:h-[300px] xl:h-[380px]" >
                         <div>
                             <div className="w-[100%] h-[228px] lg:h-[100%] items-center flex object-cover">

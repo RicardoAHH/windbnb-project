@@ -5,8 +5,9 @@ import Cards from './components/cards.jsx'
 import ModalMobile from './components/ModalMobile.jsx'
 
 function App() {
-
+  const [photos, setPhotos] = useState([]);
   const [isOpen, setIsopen] = useState(false)
+  const [filter, setFilter] = useState([])
 
   const toggleModal = () => {
     setIsopen((prev) => {
@@ -18,12 +19,17 @@ function App() {
     <>
       <Header
         onClose={toggleModal}
-        isOpen={isOpen} />
+      />
       <Container />
-      <Cards />
+      <Cards
+        setPhotos={setPhotos}
+        filter={filter}
+      />
       <ModalMobile
         onClose={toggleModal}
-        isOpen={isOpen} />
+        isOpen={isOpen}
+        photos={photos}
+        setFilter={setFilter} />
     </>
   )
 }
