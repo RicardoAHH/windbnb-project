@@ -4,7 +4,6 @@ import axios from 'axios';
 export default function Cards({ setPhotos, filter, setNumStays, setFilter }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [cuenta, setCuenta] = useState(0)
 
     async function fetchData(url) {
         try {
@@ -18,12 +17,13 @@ export default function Cards({ setPhotos, filter, setNumStays, setFilter }) {
             console.error("Error fetching photos:", error);
         } finally {
             setLoading(false);
+
         }
     }
-
+    //https://raw.githubusercontent.com/RicardoAHH/windbnb-project/refs/heads/main/public/stays.json
 
     useEffect(() => {
-        fetchData('/stays.json');
+        fetchData('https://raw.githubusercontent.com/RicardoAHH/windbnb-project/refs/heads/main/public/stays.json');
     }, [])
 
     if (loading) {
@@ -34,8 +34,8 @@ export default function Cards({ setPhotos, filter, setNumStays, setFilter }) {
         return <div className="text-center p-4 text-red-500 text-lg">Error: {error}</div>;
     }
 
-
     setNumStays(filter.length)
+
 
 
     return (
@@ -59,7 +59,7 @@ export default function Cards({ setPhotos, filter, setNumStays, setFilter }) {
                                         <p>{photo.type}</p>
                                         {photo.beds !== null && (<p>, {photo.beds} beds</p>)}
                                     </span>
-                                    <span className="flex"><img className="w-[15px]" src="./starroja.svg" alt="star" />{photo.rating}</span>
+                                    <span className="flex"><img className="w-[15px]" src="/starroja.svg" alt="star" />{photo.rating}</span>
                                 </div>
                                 <p className="font-semibold">{photo.title}</p>
                             </div>

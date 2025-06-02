@@ -169,7 +169,7 @@ export default function ModalMobile({ onClose, isOpen, photos, setFilter, locati
                                     className="search2 h-[50px] flex items-center justify-center pr-[10%] min-md:hidden"
                                     type="submit"><span
                                         className="flex bg-[#eb5757] py-2 px-5 gap-2 rounded-2xl text-white items-center"><img
-                                            className="w-[13px] h-[15px]" src="/search-13-32.png" alt="search" />
+                                            className="w-[13px] h-[15px]" src="public/search-13-32.png" alt="search" />
                                         search</span>
                                 </button>
                             </form>
