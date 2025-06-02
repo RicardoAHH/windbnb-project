@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import star from '/public/starroja.svg';
 
 export default function Cards({ setPhotos, filter, setNumStays, setFilter }) {
     const [loading, setLoading] = useState(true);
@@ -59,7 +60,7 @@ export default function Cards({ setPhotos, filter, setNumStays, setFilter }) {
                                         <p>{photo.type}</p>
                                         {photo.beds !== null && (<p>, {photo.beds} beds</p>)}
                                     </span>
-                                    <span className="flex"><img className="w-[15px]" src="/starroja.svg" alt="star" />{photo.rating}</span>
+                                    <span className="flex"><img className="w-[15px]" src={star} alt="star" />{photo.rating}</span>
                                 </div>
                                 <p className="font-semibold">{photo.title}</p>
                             </div>
