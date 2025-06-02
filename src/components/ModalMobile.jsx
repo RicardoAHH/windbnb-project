@@ -1,10 +1,9 @@
 import { useState } from 'react'
 
-export default function ModalMobile({ onClose, isOpen, photos, setFilter }) {
+export default function ModalMobile({ onClose, isOpen, photos, setFilter, location, setLocation }) {
 
     const [chil, setChil] = useState(0)
     const [adult, setAdult] = useState(0)
-    const [location, setLocation] = useState("")
     const array = photos
 
     function add() {
@@ -39,7 +38,7 @@ export default function ModalMobile({ onClose, isOpen, photos, setFilter }) {
     }
 
     function copyLocation(e) {
-        setLocation(stay0.innerText)
+        setLocation(stay.innerText)
     }
 
     function handleSubmit(e) {
@@ -57,7 +56,6 @@ export default function ModalMobile({ onClose, isOpen, photos, setFilter }) {
             let filtrado = array.filter((stay) => stay.maxGuests >= formData.totalGuests)
             setFilter(filtrado)
             console.log(filtrado)
-            console.log(array)
             onClose()
 
         } else if (formData.totalGuests === 0 && location != "") {
@@ -75,6 +73,11 @@ export default function ModalMobile({ onClose, isOpen, photos, setFilter }) {
 
     }
 
+    const uniqueLocations = Array.from(new Set(photos.map(item =>
+        JSON.stringify({ city: item.city, country: item.country })
+    ))).map(item => JSON.parse(item));
+
+
 
     return (
         <>
@@ -84,12 +87,12 @@ export default function ModalMobile({ onClose, isOpen, photos, setFilter }) {
                         <div className="pl-4 min-md:hidden">
                             <p className="font-bold text-[10px]">Edit your search</p>
                         </div>
-                        <button onClick={onClose} id="cerrar" className="flex items-center gap-5 border-2 max-md:border-3 flex p-2 w-[100px] max-md:w-[50px] mt-2 mr-5 ml-auto">
+                        <button onClick={onClose} id="cerrar" className="flex items-center gap-5  p-2 w-[100px] max-md:w-[50px] mt-2 mr-5 ml-auto">
                             <p className="max-md:hidden">CLOSE</p>
-                            <p className=" text-[20px] max-md:hidden">X</p>
+                            <p className=" text-[20px]">X</p>
                         </button>
                     </div>
-                    <form onSubmit={handleSubmit} className="flex max-md:flex-col items-center justify-center w-[100%]"> {/* Ajustado para envolver ambos inputs y el botón de búsqueda */}
+                    <form onSubmit={handleSubmit} className="flex max-md:flex-col items-center justify-center w-[100%]">
                         <div className="border-2 border-gray-200 min-md:rounded-l-xl max-md:rounded-t-xl w-[40%] max-md:w-[100%] h-[50px] text-[10px] font-semibold text-left pl-5">
                             Location<br />
                             <input autoComplete="off" name="inputlocation" type="search" className="text-[13px] w-[100%] outline-0"
@@ -116,23 +119,23 @@ export default function ModalMobile({ onClose, isOpen, photos, setFilter }) {
                     </form>
                 </div>
                 <div id="menu" className="bg-[#F2F2F2] w-[100%] h-[380px]">
-                    <section className="pl-[10%] gap-[10%] flex flex-wrap max-md:flex-col ">
-                        <div className="w-[30%] h-[300px] max-md:h-[30px] flex flex-col pt-5 max-md:pt-3">
-                            {location.trim() !== "" && photos
+                    <section className="pl-[10%] gap-[10%] flex flex-wrap max-md:flex-col">
+                        <div className="max-md:w-[30%] w-[350px] max-md:h-[30px] flex flex-col pt-5 max-md:pt-3">
+                            {location.trim() !== "" && uniqueLocations
                                 .filter((stay) => stay.city.toLowerCase().startsWith(location.toLowerCase()))
                                 .map((stay) => (
-                                    <button key={stay.id} onClick={copyLocation} id="subLocations">
-                                        <div className="flex items-center gap-3">
+                                    <button key={stay.city} onClick={copyLocation} id="subLocations ">
+                                        <div className="flex items-center gap-3 w-50">
                                             <img className="w-[18px] h-[18px] " src="/location-pointer.png" alt="location" />
-                                            <p id={`stay${stay.id}`} name={stay.id} className="font-semibold text-[13px]">{stay.city}</p>
-                                            <p>,{stay.country}</p>
+                                            <p id="stay" name="stay" className="font-semibold text-[13px]">{stay.city}</p>
+                                            <p className="font-semibold text-[13px]">, {stay.country}</p>
                                         </div>
                                     </button>
                                 ))
                             }
                         </div>
                         <div id="subGuests"
-                            className="w-[30%] max-md:w-[40%] h-[300px] max-md:h-[200px] flex flex-col justify-evenly">
+                            className="w-[30%] max-md:w-[40%] h-[300px] max-md:h-[200px] max-md:pt-5 flex flex-col justify-evenly">
                             <div>
                                 <h3 className="font-bold text-[15px]">Adults</h3>
                                 <h3 className="font-semibold text-[15px] text-gray-400">Ages 13 or above</h3>
@@ -160,12 +163,17 @@ export default function ModalMobile({ onClose, isOpen, photos, setFilter }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-[100%] pt-15 flex items-center justify-center"><button
-                            className="search2 h-[50px] flex items-center justify-center pr-[10%] min-md:hidden"
-                            type="submit"><span
-                                className="flex bg-[#eb5757] py-2 px-5 gap-2 rounded-2xl text-white items-center"><img
-                                    className="w-[13px] h-[15px]" src="./src/images/icons/search-13-32.png" alt="search" />
-                                search</span></button>
+                        <div className="w-[100%] pt-15 flex items-center justify-center">
+                            <form onSubmit={handleSubmit}>
+                                <button
+                                    className="search2 h-[50px] flex items-center justify-center pr-[10%] min-md:hidden"
+                                    type="submit"><span
+                                        className="flex bg-[#eb5757] py-2 px-5 gap-2 rounded-2xl text-white items-center"><img
+                                            className="w-[13px] h-[15px]" src="/search-13-32.png" alt="search" />
+                                        search</span>
+                                </button>
+                            </form>
+
                         </div>
                     </section>
                 </div>

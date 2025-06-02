@@ -1,9 +1,8 @@
-import React from 'react'
 
 export default function Header({ onClose }) {
     return (
         <header className="md:flex w-[90%] items-center justify-center">
-            <div className=" w-[100%] h-[70px] flex items-center pb-2 pl-1 md:pt-3"> <img
+            <div className=" w-[100%] h-[70px] flex items-center pb-2 pl-5 md:pl-10 lg:pl-15 md:pt-3"> <img
                 src="/logo-f7862584.svg" alt="Logo" />
             </div>
             <div className="flex items-center justify-center md:pt-3">

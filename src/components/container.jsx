@@ -1,9 +1,5 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Cards from "./cards";
 
-
-export default function Container() {
+export default function Container({ location, numStays }) {
 
 
     return (
@@ -12,11 +8,11 @@ export default function Container() {
             <section className="flex flex-col items-center justify-center w-[90%] h-[100%]  ">
                 <div className="flex items-center justify-between h-[80px] w-[100%]">
                     <div>
-                        <p id="staysin" className="font-bold text-[25px]">Stays in Finland</p>
+                        <p id="staysin" className="font-bold text-[25px]">Stays in {location} Finland</p>
                     </div>
                     <div className="text-[15px]">
-                        <span id="numberstays">12+</span>
-                        <span>Stays</span>
+                        <span id="numberstays">{numStays >= 13 ? "12+" : numStays}</span>
+                        <span> Stays</span>
                     </div>
                 </div>
 

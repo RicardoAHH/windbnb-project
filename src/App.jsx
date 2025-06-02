@@ -8,6 +8,8 @@ function App() {
   const [photos, setPhotos] = useState([]);
   const [isOpen, setIsopen] = useState(false)
   const [filter, setFilter] = useState([])
+  const [location, setLocation] = useState("")
+  const [numStays, setNumStays] = useState(0)
 
   const toggleModal = () => {
     setIsopen((prev) => {
@@ -20,16 +22,25 @@ function App() {
       <Header
         onClose={toggleModal}
       />
-      <Container />
+      <Container
+        location={location}
+        numStays={numStays}
+      />
       <Cards
         setPhotos={setPhotos}
         filter={filter}
+        photos={photos}
+        setFilter={setFilter}
+        setNumStays={setNumStays}
       />
       <ModalMobile
         onClose={toggleModal}
         isOpen={isOpen}
         photos={photos}
-        setFilter={setFilter} />
+        setFilter={setFilter}
+        location={location}
+        setLocation={setLocation}
+      />
     </>
   )
 }
