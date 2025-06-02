@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import searchrojo from '/public/search-13-32.png'
+import location from '/public/location-pointer.png'
 
 export default function ModalMobile({ onClose, isOpen, photos, setFilter, location, setLocation }) {
 
@@ -127,7 +128,7 @@ export default function ModalMobile({ onClose, isOpen, photos, setFilter, locati
                                 .map((stay) => (
                                     <button key={stay.city} onClick={copyLocation} id="subLocations ">
                                         <div className="flex items-center gap-3 w-50">
-                                            <img className="w-[18px] h-[18px] " src="/location-pointer.png" alt="location" />
+                                            <img className="w-[18px] h-[18px] " src={location} alt="location" />
                                             <p id="stay" name="stay" className="font-semibold text-[13px]">{stay.city}</p>
                                             <p className="font-semibold text-[13px]">, {stay.country}</p>
                                         </div>
